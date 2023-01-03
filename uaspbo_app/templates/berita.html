@@ -1,0 +1,112 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+<div
+      class="hero page-inner overlay"
+      style="background-image: url('{% static 'registrasi/images2/salt3.jpg' %}');"
+    >
+      <div class="container">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-lg-9 text-center mt-5">
+            <h1 class="heading" data-aos="fade-up">Kelola Berita</h1>
+
+            <nav
+              aria-label="breadcrumb"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <ol class="breadcrumb text-center justify-content-center">
+                <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                <li
+                  class="breadcrumb-item active text-white-50"
+                  aria-current="page"
+                >
+                  Kelola Berita
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Produksi Garam -->
+    <div style="margin-top: -25px;" class="">
+        <div class="container">
+          <div class="row mb-5 align-items-center" data-aos="fade-up" data-aos-delay="500">
+          </div>
+        </div>
+  
+          <div class="section section-4 bg-light">
+            <div class="container">
+              <div class="col-lg-12" >
+              <center>
+                <h2 class="font-weight-bold text-primary heading">
+                  Kelola Data  Berita
+                </h2>
+            </center><br><br>
+            <div class="col-lg-12 text-lg-start">
+              <p>
+                <a
+                  href="/tambahberita"
+                  class="btn btn-primary text-white py-3 px-4"
+                  >Tambah Data</a>
+              </p>
+            </div>
+              <table class="table table-striped table-success" style="width: 100%;" id="example">
+                  <!-- <div class="col-lg-12 text-lg-end">
+                    <a href="#" class="btn btn-primary text-white py-3 px-4">Ekspor Data</a>
+                  </div> <br> -->
+                      <thead>
+                          <tr>
+                              <th style="text-align:center">Tanggal</th>
+                              <th style="text-align:center">Judul Berita</th>
+                              <th style="text-align:center">Jenis Berita</th>
+                              <th style="text-align:center">Isi Berita</th>
+                              <th style="text-align:center">Link Berita</th>
+                              <th style="text-align:center">Gambar</th>
+                              <th style="text-align:center">Aksi</th>
+                          </tr>
+                      </thead>
+                  <tbody>
+                    {% for berita in artikel %}
+            <tr style="text-align:center;" >
+                <td>{{ berita.publikasi }}</td> 
+                <td>{{ berita.judul }}</td>
+                <td>{{ berita.macam_id }}</td>
+                <td>{{ berita.isi }}</td> 
+                <td>{{ berita.link }}</td> 
+                <td><img width="100px" src="{% static berita.img %}" alt=""></td>
+                <td>
+          <a class="btn btn-success" href="{% url 'update2' berita.pk %}"  role="button"><i class="icon-edit"></i></a>  
+          <a class="btn btn-warning" href="#" role="button" onclick="hapusberita('{{ berita.pk }}', '{{ berita.judul }}')"><i class="icon-trash"></i></a>
+                </td>        
+            </tr>
+            {% endfor %}
+          </tbody>
+                  </table><br>
+                </div>
+              </div>
+          </div>
+      </div>
+
+<script>
+    function hapusberita(id, judul){
+    swal({
+      title: "Apakah Anda Yakin?",
+      text: "Setelah data "  +  judul  +  " dihapus, data tidak dapat dikembalikan!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Berhasil!", "Data "  +  judul  +  " Berhasil Dihapus!", "success").then(function(){
+          window.location = "/berita/deleteberita/"+id;
+        });
+      }
+    });
+  }
+  </script>
+
+      {% endblock %}

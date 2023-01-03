@@ -1,0 +1,49 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Registrasi - Salt</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="{% static 'registrasi/images/salt.png' %}" />
+
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{% static 'registrasi/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static 'registrasi/css/style.css' %}">
+	</head>
+
+	<body>
+        
+		<div class="wrapper" style="background-image: url('{% static 'registrasi/images/salt3.jpg' %}');">
+			<div class="inner">
+				{% for message in messages %}
+				{% if message.tags == 'success' %}
+				   <div class="alert alert-success" style="height: 470px;">{{ message }}</div>
+				{% else %}
+			  <div class="alert alert-danger" style="height: 470px;">{{ message }}</div>
+				{% endif %}
+			  {% endfor %}
+				<div class="image-holder">
+					<img src="{% static 'registrasi/images/salt4.jpg' %}" alt="">
+				</div>
+                    <form action="{% url 'registrasi' %}" method="post">
+                    <h3>Registration Form</h3>
+                    {% csrf_token %}
+                    
+                    {{ form.as_p }}
+					<button type="submit">Register
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button><br><br>
+					<p style="text-align:center">Have an Account? <a href="/login"> Login!</a></p>
+				</form>
+			</div>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	</body>
+</html>
+
+{% endblock %}

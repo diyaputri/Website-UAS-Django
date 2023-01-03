@@ -1,0 +1,35 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% block content %}
+<div class="page-body">
+    <div class="menu-bg-wrap">
+        <div style="margin-left: 55px; margin-bottom: 73px;" class="col-sm-11" >
+      <div class="card">
+        <div class="card-header pb-0">
+          <h5>Tambah Data</h5><span>Silahkan tambahkan data garam!</span>
+        </div>
+        <div  class="card-body">
+            {% if pesan %}
+            <script>
+                swal("Berhasil!", "{{ pesan }}", "success").then(function(){
+              window.location = "/garamadmin/"; });
+            </script>
+            {% endif %}
+        
+                <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <center>
+        <div style="margin-top: -20px;" class="card-footer">
+          <a href="/garamadmin" class="btn btn-primary text-white py-3 px-4">Kembali</a>
+          <button type="submit" name="tambah_garam" class="btn btn-warning">Simpan</button>
+          </center>
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

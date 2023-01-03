@@ -1,0 +1,146 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'registrasi/css/peta.css' %}" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+<link rel="stylesheet" href="{% static 'registrasi/fonts2/flaticon/font/flaticon.css' %}" />
+<div
+class="hero page-inner overlay"
+style="background-image: url('{% static 'registrasi/images2/salt3.jpg' %}')"
+>
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-9 text-center mt-5">
+      <h1 class="heading" data-aos="fade-up">Kelola Garam</h1>
+
+      <nav
+        aria-label="breadcrumb"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <ol class="breadcrumb text-center justify-content-center">
+          <li class="breadcrumb-item"><a href="/index">Home</a></li>
+          <li
+            class="breadcrumb-item active text-white-50"
+            aria-current="page"
+          >
+            Kelola Garam
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+</div>
+
+
+  <!-- Produksi Garam -->
+  <div style="margin-top: -25px;" class="">
+    <div class="container">
+      <div class="row mb-5 align-items-center" data-aos="fade-up" data-aos-delay="500">
+      </div>
+    </div>
+
+      <div class="section section-4 bg-light">
+        <div class="container">
+          <div class="col-lg-12" >
+          <center>
+            <h2 class="font-weight-bold text-primary heading">
+              Kelola Data Hasil Produksi Garam di Indonesia
+            </h2>
+            <p>Sumber: KKP Statistik</p>
+          <br>
+          <br>
+            <div id="map"></div>
+          <br>
+          <br>
+          <br>
+        </center>
+        <div class="col-lg-12 text-lg-start">
+          <p>
+            <a
+              href="/tambahgaram"
+              class="btn btn-primary text-white py-3 px-4"
+              >Tambah Data</a>
+          </p>
+        </div>
+          <table class="table table-striped table-success" style="width: 100%;" id="example">
+              <!-- <div class="col-lg-12 text-lg-end">
+                <a href="#" class="btn btn-primary text-white py-3 px-4">Ekspor Data</a>
+              </div> <br> -->
+                  <thead>
+                      <tr>
+                          <th style="text-align:center">Koordinat</th>
+                          <th style="text-align:center">Provinsi</th>
+                          <th style="text-align:center">Jenis Garam</th>
+                          <th style="text-align:center">2017 (Ton)</th>
+                          <th style="text-align:center">2018 (Ton)</th>
+                          <th style="text-align:center">2019 (Ton)</th>
+                          <th style="text-align:center">2020 (Ton)</th>
+                          <th style="text-align:center">Aksi</th>
+                      </tr>
+                  </thead>
+               <tbody>
+             {% for garam in produksi %}
+            <tr style="text-align:center;" >
+              <td>{{ garam.koordinat }}</td>
+                <td>{{ garam.provinsi }}</td>
+                <td>{{ garam.jenis_id }}</td>
+                <td>{{ garam.tahun_2017 }}</td>
+                <td>{{ garam.tahun_2018 }}</td> 
+                <td>{{ garam.tahun_2019 }}</td> 
+                <td>{{ garam.tahun_2020 }}</td>    
+                <td>
+          <a class="btn btn-success" href="{% url 'update' garam.pk %}"  role="button"><i class="icon-edit"></i></a>
+          <a class="btn btn-warning" href="#" role="button" onclick="hapusgaram('{{ garam.pk }}', '{{ garam.provinsi }}')"><i class="icon-trash"></i></a>
+                </td>        
+            </tr>
+            {% endfor %}
+        </tbody>
+              </table><br>
+            </div>
+          </div>
+      </div>
+  </div>
+
+
+
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<script>
+	const map = L.map('map').setView([0.4266714,116.5139325,3210344], 5);
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+{% for garam in produksi %}
+
+var table = '<table><tr style="font-family:oregon;"><td>Provinsi</td><td>:</td> <td> {{ garam.provinsi }}</td></tr>';
+table += '<tr style="font-family:oregon;"><td>2017 (Ton)</td><td>:</td> <td> {{ garam.tahun_2017 }}</td></tr><tr style="font-family:oregon;"><td>2018 (Ton)</td><td>:</td> <td> {{ garam.tahun_2018 }}</td></tr><tr style="font-family:oregon;"><td>2019 (Ton)</td><td>:</td> <td> {{ garam.tahun_2019 }}</td></tr><tr style="font-family:oregon;"><td>2020 (Ton)</td><td>:</td> <td> {{ garam.tahun_2020 }}</td></tr></table>';
+var marker=  L.marker([{{ garam.koordinat }}]).addTo(map);
+marker.bindPopup(table);
+
+  {% endfor %}
+</script>
+
+<script>
+    function hapusgaram(id, provinsi){
+    swal({
+      title: "Apakah Anda Yakin?",
+      text: "Setelah data "  +  provinsi  +  " dihapus, data tidak dapat dikembalikan!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Berhasil!", "Data "  +  provinsi  +  " Berhasil Dihapus!", "success").then(function(){
+          window.location = "/garamadmin/deletegaram/"+id;
+        });
+      }
+    });
+  }
+  </script>
+  
+{% endblock %}

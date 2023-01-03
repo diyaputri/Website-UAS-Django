@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="hero">
+    <div class="hero-slide">
+      <div
+        class="img overlay"
+        style="background-image: url('{% static 'registrasi/images2/salt1.jpg' %}');"
+      ></div>
+      <div
+        class="img overlay"
+        style="background-image: url('{% static 'registrasi/images2/salt2.jpg' %}');"
+      ></div>
+      <div
+        class="img overlay"
+        style="background-image: url('{% static 'registrasi/images2/salt3.jpg' %}');"
+      ></div>
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-9 text-center">
+          <h1 class="heading" data-aos="fade-up">
+            Welcome to Salt
+          </h1>
+          <h6 style="color:white; margin-top: -25px;" data-aos="fade-up">
+            Website tentang Informasi Hasil Produksi Garam di Indonesia
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- About -->
+  <div class="section section-4 ">
+    <div class="container">
+      <div class="row justify-content-center text-center mb-5">
+        <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
+          <h2 class="font-weight-bold heading text-primary mb-4">
+            Tentang Garam
+          </h2>
+          <p style="text-align: justify;" class="text-black-50">
+            Indonesia merupakan kepulauan dengan total garis pantai mencapai 95 ribu km. Wilayah perairan lautnya yang lebih luas dibanding wilayah daratannya menjadikan Indonesia sebagai negara maritim dengan potensi kelautan dan perikanan yang melimpah. Salah satu potensi sektor kelautan dan perikanan yang perlu digali dan dikembangkan adalah garam.
+          </p>
+          <p style="text-align: justify;" class="text-black-50">
+            Garam merupakan komoditas penting karena merupakan salah satu kebutuhan pokok yang dikonsumsi. Tetapi di sisi lain, produksi garam dalam negeri belum mampu memenuhi kebutuhan garam nasional. Hal ini mengakibatkan Indonesia masih melakukan impor garam. Pada dasarnya, dengan potensi kelautan yang besar, Indonesia seharusnya mampu memproduksi dan memenuhi kebutuhan garam sendiri. Oleh karena itu, upaya pengembangan usaha garam melalui penguatan partisipasi masyarakat perlu ditingkatkan.
+          </p>
+        </div>
+      </div>
+      <h3 class="heading" data-aos="fade-up" data-aos-delay="300">3 Metode Pembuatan Garam</h3><br>
+      <div class="row justify-content-between mb-5">
+        <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2" data-aos="fade-up" data-aos-delay="400">
+          <div class="img-about dots">
+            <img src="{% static 'registrasi/images2/petani.jpg' %}" alt="Image" class="img-fluid" />
+          </div>
+        </div>
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+          <div class="d-flex feature-h">
+            <span class="wrap-icon me-3">
+              <span class="icon-home2"></span>
+            </span>
+            <div class="feature-text">
+              <h3 class="heading">Metode Tradisional</h3>
+              <p class="text-black-50">
+                Membuat garam dengan cara tradisional dapat dilakukan dengan peralatan yang sederhana.
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex feature-h">
+            <span class="wrap-icon me-3">
+              <span class="icon-person"></span>
+            </span>
+            <div class="feature-text">
+              <h3 class="heading">Metode Teknologi Ulir Filter (TUF) Geomembran</h3>
+              <p class="text-black-50">
+                Cara membuat garam dengan metode TUF menjadi alternatif untuk mendapatkan garam kualitas bagus dengan kadar garam diatas 90%.
+              </p>
+            </div>
+          </div>
+
+          <div class="d-flex feature-h">
+            <span class="wrap-icon me-3">
+              <span class="icon-security"></span>
+            </span>
+            <div class="feature-text">
+              <h3 class="heading">Metode Continuously Dynamic Mixing (CDM) danTeknologi Greenhouse Salt Tunnel (GST)</h3>
+              <p class="text-black-50">
+                Teknologi GST dan metode CDM merupakan teknologi yang memungkinkan produksi garam dapat dilakukan baik di musim kemarau maupun di musim hujan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+
+    <br><br>
+          <!-- Berita -->
+    <div style="margin-top: -150px;" class="container"> 
+      <div class="section section-4 ">
+      <div class="row">
+        <div class="col-12"  data-aos="fade-up" data-aos-delay="500">
+          <div class="col-lg-12" >
+            <center><h2 class="font-weight-bold text-primary heading">
+              Berita Terkini
+            </h2></center><br><br>
+          <div class="property-slider-wrap" >
+            
+            <div class="property-slider">
+              {% for berita in artikel %}
+              <div class="property-item">
+                <a href="{{ berita.link }}" class="img">
+                  <img style="height: 350px;" src="{% static berita.img %}" alt="Image" class="img-fluid" />
+                </a>
+
+                <div class="property-content">
+                  <div class="icon-clock-o"><span> {{ berita.publikasi }}</span></div>
+                  <div>
+                    <span class="city d-block mb-3">{{ berita.judul }}</span>
+                    <span class="d-block mb-2 text-black-50">{{ berita.isi }}</span>
+                    <a href="{{ berita.link }}" class="btn btn-primary py-2 px-3">See details</a>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <div
+              id="property-nav"
+              class="controls"
+              tabindex="0"
+              aria-label="Carousel Navigation"
+            >
+              <span
+                class="prev"
+                data-controls="prev"
+                aria-controls="property"
+                tabindex="-1"
+                >Prev</span
+              >
+              <span
+                class="next"
+                data-controls="next"
+                aria-controls="property"
+                tabindex="-1"
+                >Next</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+</div>
+
+{% endblock %}

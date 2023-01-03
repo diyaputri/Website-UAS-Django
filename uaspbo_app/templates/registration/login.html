@@ -1,0 +1,47 @@
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<meta http-equiv="refresh" content="0; url={% url 'garamadmin' %}">
+{% else %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login - Salt</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="{% static 'registrasi/images2/salt.png' %}" />
+
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+		<link rel="stylesheet" href="{% static 'registrasi/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
+
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="{% static 'registrasi/css/style.css' %}">
+	</head>
+
+	<body>
+
+		<div class="wrapper" style="background-image: url('{% static 'registrasi/images/salt3.jpg' %}');">
+			<div class="inner">
+				<div class="image-holder">
+					<img src="{% static 'registrasi/images/salt4.jpg' %}" alt="">
+				</div>
+				<form method="post">
+					<h3 style="margin-bottom: 120px;">Login Form</h3>
+                    {% csrf_token %}
+                         
+                    {{ form.as_p }}
+
+					<button type="submit">Login
+						<i class="zmdi zmdi-arrow-right"></i>
+					</button>
+					<br>
+                    <p style="text-align:center">Don't have an Account? <a href="/registrasi"> Registrasi Now!</a></p>
+				</form>
+			</div>
+		</div>
+		
+	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
+
+{% endif %}
+{% endblock %}
